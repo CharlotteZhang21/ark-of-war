@@ -23,14 +23,6 @@ class DarkOverlay extends Phaser.Group {
 			this.finalAlpha = .5;
 		}
 		this.alpha = 0;
-
-		// this.gradient = game.add.graphics(0,0);
-		// this.gradient.beginFill(0x000000, 1);
-		// this.gradient.drawRect(
-		// 	0, 
-		// 	0, 
-		// this.game.global.windowWidth * window.devicePixelRatio, 
-		// this.game.global.windowHeight * window.devicePixelRatio;
 		this.createGradient();
 
 	}

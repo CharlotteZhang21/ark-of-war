@@ -34,114 +34,122 @@ PiecSettings.finalOverlay = {
     delay: 3000,
 };
 
+var enemy_PosX = 1.05, character_PosX = -.05;
+var enemy_PosY = 0.65, character_PosY = 0.7;
+var soldier_Scale_Portrait = .2, soldier_Scale_Landscape = .4,
+enemy_Scale_Landscape = .4;
+
 PiecSettings.characterSettings = [
     { //SOLDIER BACK
-        idleAnimIndex:4, //index of animation in pngAnimations array
-        attackAnimIndex:5,
-        // attackEffectAnimIndex:5,
-
-        dieAnimIndex: 7,
+        idleAnimIndex:3, //index of animation in pngAnimations array
+        attackAnimIndex:4,
+        dieAnimIndex: 5,
 
         enemy: false,
 
-        lifeBarYPos: .7, // The bigger this value, the higher
+        lifeBarYPos: -0.4, // The bigger this value, the higher
         // icon: 'blue-icon', // Will appear next to the life bar
 
-        scaleLandscape: .38, //scale as factor of height for landscape
-        scalePortrait: .24, //scale as factor of height for portrait
-        xPos: .25, //anchor is on 0.5,0.5. xPos as a percentile of total screen width
-        yPos: .28, //yPos as percentile of total screen height
+        scaleLandscape: enemy_Scale_Landscape , //scale as factor of height for landscape
+        scalePortrait: soldier_Scale_Portrait, //scale as factor of height for portrait
+        xPos: character_PosX +0.05, //anchor is on 0.5,0.5. xPos as a percentile of total screen width
+        yPos: character_PosY - 0.15, //yPos as percentile of total screen height
+  
+        posXLandscapeOffset: .15,
+        posYLandscapeOffset: .65,
     },
     { //ENEMY BACK
-        idleAnimIndex:8, //index of animation in pngAnimations array
-        attackAnimIndex:9,
-        dieAnimIndex:11,
+        idleAnimIndex:6, //index of animation in pngAnimations array
+        attackAnimIndex:7,
+        dieAnimIndex:8,
 
         enemy: true,
 
-        lifeBarYPos: .9, // The bigger this value, the higher
+        lifeBarYPos: -.4, // The bigger this value, the higher
         // icon: 'purple-icon', // Will appear next to the life bar
 
-        scaleLandscape: .33, //scale as factor of height for landscape
-        scalePortrait: .22, //scale as factor of height for portrait
-        xPos: .7, //anchor is on 0.5,0.5. xPos as a percentile of total screen width
-        yPos: .28, //yPos as percentile of total screen height
-
+        scaleLandscape: enemy_Scale_Landscape , //scale as factor of height for landscape
+        scalePortrait: .25, //scale as factor of height for portrait
+        xPos: enemy_PosX + 0.05, //anchor is not 0.5,0.5. xPos as a percentile of total screen width
+        yPos: enemy_PosY - 0.15, //yPos as percentile of total screen height
         flipped: true,
+
+        posXLandscapeOffset: .8,
+        posYLandscapeOffset: .55,
     },
     { //CAR
         idleAnimIndex:0, //index of animation in pngAnimations array
         attackAnimIndex:1,
-        // attackEffectAnimIndex:,
-
-        dieAnimIndex: 13,
+        dieAnimIndex: 2,
 
         enemy: false,
 
-        lifeBarYPos: .6, // The bigger this value, the higher
+        lifeBarYPos: .01, // The bigger this value, the higher
         // icon: 'blue-icon', // Will appear next to the life bar
 
-        scaleLandscape: .48, //scale as factor of height for landscape
-        scalePortrait: .3, //scale as factor of height for portrait
-        xPos: .15, //anchor is on 0.5,0.5. xPos as a percentile of total screen width
-        yPos: .42, //yPos as percentile of total screen height
+        scaleLandscape: enemy_Scale_Landscape , //scale as factor of height for landscape
+        scalePortrait: .2, //scale as factor of height for portrait
+        xPos: character_PosX, //anchor is on 0.5,0.5. xPos as a percentile of total screen width
+        yPos: character_PosY, //yPos as percentile of total screen height
+        posXLandscapeOffset: .1,
+        posYLandscapeOffset: .85,
     },
-    { //ENEMY BACK
-        idleAnimIndex:8, //index of animation in pngAnimations array
-        attackAnimIndex:9,
-        // attackEffectAnimIndex:8,
-        // attackEffectStyle: "cast", // "cast" the attack effect renders on the character casting it, and then it's shooted at the enemies
-                                    // "default", the attack renders on the enemy spot.
-        dieAnimIndex:11,
+    { //ENEMY MID
+        idleAnimIndex:6, //index of animation in pngAnimations array
+        attackAnimIndex:7,
+        dieAnimIndex:8,
 
         enemy: true,
 
-        lifeBarYPos: .75, // The bigger this value, the higher
-        icon: 'death-icon', // Will appear next to the life bar
-
-        scaleLandscape: .38, //scale as factor of height for landscape
-        scalePortrait: .23, //scale as factor of height for portrait
-        xPos: .85, //anchor is on 0.5,0.5. xPos as a percentile of total screen width
-        yPos: .38, //yPos as percentile of total screen height
-
-        flipped: true,
-    },
-    { //ENEMY FRONT
-        idleAnimIndex:8, //index of animation in pngAnimations array
-        attackAnimIndex:9,
-        // attackEffectAnimIndex:8,
-        // attackEffectStyle: "cast", // "cast" the attack effect renders on the character casting it, and then it's shooted at the enemies
-                                    // "default" or leaving it empty, the attack renders on the enemy spot.
-        dieAnimIndex:11,
-
-        enemy: true,
-
-        lifeBarYPos: .75, // The bigger this value, the higher
+        lifeBarYPos: -.5, // The bigger this value, the higher
         // icon: 'death-icon', // Will appear next to the life bar
 
-        scaleLandscape: .38, //scale as factor of height for landscape
-        scalePortrait: .23, //scale as factor of height for portrait
-        xPos: .85, //anchor is on 0.5,0.5. xPos as a percentile of total screen width
-        yPos: .52, //yPos as percentile of total screen height
+        scaleLandscape: enemy_Scale_Landscape , //scale as factor of height for landscape
+        scalePortrait: .25, //scale as factor of height for portrait
+        xPos: enemy_PosX , //anchor is on 0.5,0.5. xPos as a percentile of total screen width
+        yPos: enemy_PosY, //yPos as percentile of total screen height
 
         flipped: true,
+        posXLandscapeOffset: .9,
+        posYLandscapeOffset: .65,
     },
-    { //KNIGHT FRONT
-        idleAnimIndex:4, //index of animation in pngAnimations array
-        attackAnimIndex:5,
-        // attackEffectAnimIndex:5,
+    { //ENEMY UP
+        idleAnimIndex:6, //index of animation in pngAnimations array
+        attackAnimIndex:7,
+        dieAnimIndex:8,
 
-        dieAnimIndex: 7,
+        enemy: true,
+
+        lifeBarYPos: -.5, // The bigger this value, the higher
+        // icon: 'death-icon', // Will appear next to the life bar
+
+        scaleLandscape: enemy_Scale_Landscape , //scale as factor of height for landscape
+        scalePortrait: .25, //scale as factor of height for portrait
+        xPos: enemy_PosX + 0.05, //anchor is on 0.5,0.5. xPos as a percentile of total screen width
+        yPos: enemy_PosY + 0.15, //yPos as percentile of total screen height
+        
+
+        flipped: true,
+        posXLandscapeOffset: .8,
+        posYLandscapeOffset: .85,
+    },
+    { //SOLDIER FRONT
+        idleAnimIndex:3, //index of animation in pngAnimations array
+        attackAnimIndex:4,
+        dieAnimIndex: 5,
 
         enemy: false,
 
-        lifeBarYPos: .7, // The bigger this value, the higher
+        lifeBarYPos: -0.4, // The bigger this value, the higher
         // icon: 'blue-icon', // Will appear next to the life bar
 
-        scaleLandscape: .38, //scale as factor of height for landscape
-        scalePortrait: .24, //scale as factor of height for portrait
-        xPos: .25, //anchor is on 0.5,0.5. xPos as a percentile of total screen width
-        yPos: .68, //yPos as percentile of total screen height
+        scaleLandscape: enemy_Scale_Landscape , //scale as factor of height for landscape
+        scalePortrait: soldier_Scale_Portrait, //scale as factor of height for portrait
+        xPos: character_PosX, //anchor is on 0.5,0.5. xPos as a percentile of total screen width
+        yPos: character_PosY + 0.15, //yPos as percentile of total screen height
+  
+        posXLandscapeOffset: .2,
+        posYLandscapeOffset: .95,
     }
 ];
 
@@ -150,35 +158,37 @@ PiecSettings.nonPlayerCharacters = [1,3,4];
 
 PiecSettings.battleScript = [
     [ //new interaction
-        {a: "attack", from: 3, to: 2, delay:300, damage: 9}, //damange is in % of total health
-        {a: "attack", from: 4, to: 5,delay:1000, damage: 10},
-        {a: "attack", from: 1, to: 0, delay: 1200, damage: 20, effect:"shake"},
+        {a: "attack", from: 3, to: 2, delay:1000, damage: 10}, //damange is in % of total health
+        {a: "attack", from: 4, to: 5,delay:100, damage: 10},
+        {a: "attack", from: 1, to: 0, delay: 100, damage: 10},
     ],                                           //"a" is an action, "from" specifies the id of the attacker, "to" is optional, and specifies who is attacked
         //delay specifies the delay from the previous action. 0 to play both together
         //"a" can be "attack" "attackAndFly", "interaction" 
     [ //new interaction. After the above block, the player needs to tap the screen to continue
-        {a: "attack", from: 0, to: 1, delay: 500, damage: 50 , effect:"shake"}
+        {a: "attack", from: 0, to: 1, delay: 500, damage: 20, effect:"shake"},
+        {a: "attack", from: 5, to: 4, delay: 500, damage: 20, effect:"shake"}
     ],
     [
-        {a: "attack", from: 5, to: 4,delay: 500, damage: 50, effect:"shake"}
+        {a: "attack", from: 2, to: 3, delay: 500, damage: 20 , effect:"shake"}
     ],
     [
-        {a: "attack", from: 2, to: 3,  delay: 500, damage: 50}
+        {a: "attack", from: 1, to: 0,delay: 300, damage: 10},
+        {a: "attack", from: 3, to: 2, delay: 300,damage: 10},
+        {a: "attack", from: 4, to: 5, delay: 300, damage: 10}
     ],
     [
-        {a: "attack", from: 1, to: 0,delay: 500, damage: 20},
-        {a: "attack", from: 3, to: 0, delay: 500,damage: 7},
-        {a: "attack", from: 4, to: 5, delay: 500, damage: 7}
-    ],
-    [
-        {a: "attack", from: 2, delay: 500, delay:500, damage: 100, effect:"shake-big"}
+        {a: "attack", from: 2, to: 3, delay: 500, damage: 100, effect:"shake-big"},
+        {a: "attack", from: 5, to: 4, delay: 500, damage: 10, effect:"shake"},
+        {a: "attack", from: 0, to: 1,  delay: 500, damage: 20 , effect:"shake"}
     ]
 ];
 
 //if no reaction then run this script
 PiecSettings.enemyAttackScript = [
     [
-        {a: "attack", from: 3, to 4, delay: 500, damage: 100, effect:"shake-big"}
+        {a: "attack", from: 1, to: 0, delay: 500, damage: 100, effect:"shake-big"},
+        {a: "attack", from: 3, to: 2, delay: 100, damage: 100, effect:"shake-big"},
+        {a: "attack", from: 4, to: 5, delay: 100, damage: 100, effect:"shake-big"}
     ]
 
 ];
@@ -188,7 +198,7 @@ PiecSettings.pngAnimations = [
         src: 'car_idle.png',
         spriteWidth: 1834/7,
         spriteHeight: 756/3,
-        spriteNumber: 21,
+        spriteNumber: 20,
         loops: 0,
         delay: 0,
         fps: 10,
@@ -197,68 +207,16 @@ PiecSettings.pngAnimations = [
     {//1
         src: 'car_attack.png',
         spriteWidth: 1764/3,
-        spriteHeight: 3024/12,
-        spriteNumber: 36,
+        spriteHeight: 2016/8,
+        spriteNumber: 24,
         loops: 1,
         delay: 0,
         fps: 10,
+        scale: 2.7,
         isReversed: false,
     },
     {//2
-        src: 'car_hurt.png',
-        spriteWidth: 750/3,
-        spriteHeight: 767/4,
-        spriteNumber: 11,
-        loops: 1,
-        delay: 0,
-        fps: 22,
-        isReversed: false,
-        persistent: true,
-    },
-    {//3
         src: 'car_dead.png',
-        spriteWidth: 750/3,
-        spriteHeight: 767/4,
-        spriteNumber: 11,
-        loops: 1,
-        delay: 0,
-        fps: 22,
-        isReversed: false,
-        persistent: true,
-    },
-    {//4
-        src: 'blue_idle.png',
-        spriteWidth: 480/2,
-        spriteHeight: 1224/6,
-        spriteNumber: 12,
-        loops: 0,
-        delay: 0,
-        fps: 10,
-        isReversed: false,
-    },
-    {//5
-        src: 'blue_attack.png',
-        spriteWidth: 2036/4,
-        spriteHeight: 1512/6,
-        spriteNumber: 23,
-        loops: 1,
-        delay: 0,
-        fps: 10,
-        isReversed: false,
-        // persistent: true,
-    },
-    {//6
-        src: 'blue_hurt.png',
-        spriteWidth: 1763/7,
-        spriteHeight: 162,
-        spriteNumber: 7,
-        loops: 1,
-        delay: 300,
-        fps: 10,
-        isReversed: false,
-    },
-    {//7
-        src: 'blue_dead.png',
         spriteWidth: 786/3,
         spriteHeight: 1008/3,
         spriteNumber: 9,
@@ -268,46 +226,71 @@ PiecSettings.pngAnimations = [
         isReversed: false,
         persistent: true,
     },
-    {//8
+    {//3
+        src: 'blue_idle.png',
+        spriteWidth: 786/3,
+        spriteHeight: 1008/4,
+        spriteNumber: 11,
+        loops: 0,
+        delay: 0,
+        fps: 10,
+        isReversed: false,
+    },
+    {//4
+        src: 'blue_attack.png',
+        spriteWidth: 2036/4,
+        spriteHeight: 1260/5,
+        spriteNumber: 18,
+        loops: 1,
+        delay: 0,
+        fps: 10,
+        scale: 2.5,
+        isReversed: false,
+        // persistent: true,
+    },
+    {//5
+        src: 'blue_dead.png',
+        spriteWidth: 1834/7,
+        spriteHeight: 756/3,
+        spriteNumber: 21,
+        loops: 1,
+        delay: 0,
+        fps: 10,
+        isReversed: false,
+        persistent: true,
+    },
+    {//6
         src: 'enemy_idle.png',
         spriteWidth: 786/3,
         spriteHeight: 1008/4,
         spriteNumber: 12,
-        loops: 1,
+        loops: 0,
         delay: 0,
         fps: 10,
         isReversed: false,
         // persistent: true,
         // aligned: "middle", //aligned to bottom of character
     },
-    {//9
+    {//7
         src: 'enemy_attack.png',
-        spriteWidth: 660/3,
-        spriteHeight: 712/3,
-        spriteNumber: 8,
+        spriteWidth: 1665/3,
+        spriteHeight: 1764 /7,
+        spriteNumber: 21,
         loops: 1,
         delay: 0,
-        fps: 12,
+        fps: 10,
+        scale: 1.34,
         isReversed: false,
     },
-    {//10
-        src: 'enemy_hurt.png',
-        spriteWidth: 1310/5,
-        spriteHeight: 252,
-        spriteNumber: 5,
-        loops: 0,
-        delay: 0,
-        fps: 8,
-        isReversed: false,
-    },
-    {//11
+    {//8
         src: 'enemy_dead.png',
-        spriteWidth: 700/5,
-        spriteHeight: 488/2,
-        spriteNumber: 10,
-        loops: 0,
+        spriteWidth: 786/3,
+        spriteHeight: 1512/6,
+        spriteNumber: 18,
+        loops: 1,
         delay: 0,
-        fps: 11,
+        fps: 10,
+        scale: .9,
         isReversed: false,
     },
     

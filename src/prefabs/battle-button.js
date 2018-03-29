@@ -7,13 +7,12 @@ class BattleButton extends Phaser.Group {
 		/** elements **/
 		this.button = new Phaser.Sprite(game, 0, 0, 'attack-button', 0);
 
-		var knight_pt = new Phaser.Sprite(game, 0, 0, 'knight-portrait', 0),
-			girl_pt = new Phaser.Sprite(game, 0, 0, 'girl-portrait', 0);
+		var girl_pt = new Phaser.Sprite(game, 0, 0, 'girl-portrait', 0);
 
 		this.portrait = {
-			"0" : knight_pt,
+			"0" : girl_pt,
 			"2" : girl_pt,
-			"5" : knight_pt
+			"5" : girl_pt
 			
 		}
 
@@ -41,9 +40,9 @@ class BattleButton extends Phaser.Group {
 			
 			this.button.scale.x = this.game.global.windowWidth * window.devicePixelRatio * .3 / this.button.width;
 
-			this.girlEnergyBar.x = this.button.x /2 * 1.5;
+			this.girlEnergyBar.x = this.button.x /1.3;
 
-			this.enemyEnergyBar.x = this.button.x /2 * 1.5;
+			this.enemyEnergyBar.x = this.button.x /1.3;
 
 			this.girlEnergyBar.scale.x = this.button.scale.x / 2;
 			this.girlEnergyBar.scale.y = this.girlEnergyBar.scale.x;
@@ -55,9 +54,9 @@ class BattleButton extends Phaser.Group {
 
 			this.button.scale.x = this.game.global.windowWidth * window.devicePixelRatio * .5 / this.button.width;
 			
-			this.girlEnergyBar.x = this.button.x /2 * 1.1;
+			this.girlEnergyBar.x = this.button.x/1.3;
 
-			this.enemyEnergyBar.x = this.button.x/2 * 1.1;
+			this.enemyEnergyBar.x = this.button.x/1.3;
 
 			this.girlEnergyBar.scale.x = this.button.scale.x/2.5;
 			this.girlEnergyBar.scale.y = this.girlEnergyBar.scale.x;
@@ -144,14 +143,14 @@ class BattleButton extends Phaser.Group {
 			
 
 			if (this.game.global.windowHeight < this.game.global.windowWidth) {
-				pt.scale.x = this.game.global.windowWidth * window.devicePixelRatio * .3 / pt.width;
+				pt.scale.x = this.game.global.windowWidth * window.devicePixelRatio * .2 / pt.width;
 				pt.x = this.button.x * 0.95;
-				pt.y = this.button.y * 0.7;
+				pt.y = this.button.y * 0.4;
 			} else {
 				pt.x = this.button.x * 0.95;
 
-				pt.y = this.button.y * 0.8;
-				pt.scale.x = this.game.global.windowWidth * window.devicePixelRatio * .5 / pt.width;
+				pt.y = this.button.y * .6;
+				pt.scale.x = this.game.global.windowWidth * window.devicePixelRatio * .3 / pt.width;
 			}
 
 			pt.scale.y = pt.scale.x;

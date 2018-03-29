@@ -8,7 +8,7 @@ import BattleButton from '../prefabs/battle-button';
 import BattleController from '../prefabs/battle-controller';
 import Camera from '../prefabs/camera';
 import * as CustomPngSequencesRenderer from '../utils/custom-png-sequences-renderer.js';
-
+import * as Utils from '../utils/util';
  class Endcard extends Phaser.State {
 
      constructor() {
@@ -30,6 +30,7 @@ import * as CustomPngSequencesRenderer from '../utils/custom-png-sequences-rende
         this.background = new Background(this.game);
         // this.game.add.existing(this.background);
         this.camera.gameWorld.add(this.background);
+        this.game.global.lifeBarScale = .25;
 
         this.game.onInteract.add(this.onInteract, this);
         this.game.onInteractionComplete.add(this.onInteractionComplete, this);
@@ -117,7 +118,6 @@ import * as CustomPngSequencesRenderer from '../utils/custom-png-sequences-rende
      enemyAttack(){
 
         if (!this.game.global.isComplete) {
-
                 this.battleController.runEnemyAttack();
                 this.game.global.readyToInteract = false;
                 this.battleButton.hide();
@@ -136,7 +136,7 @@ import * as CustomPngSequencesRenderer from '../utils/custom-png-sequences-rende
             this.game.global.restarted = false;
         }
 
-        var delay = 1000;
+        var delay = 2000;
 
         var noInteractionDelay = 3000;
 
@@ -145,6 +145,7 @@ import * as CustomPngSequencesRenderer from '../utils/custom-png-sequences-rende
         }
 
         this.game.time.events.add(delay, function() {
+            console.log('delay: ' + delay);
             this.game.global.readyToInteract = true;
             if (this.game.global.interaction < PiecSettings.battleScript.length - 1 && !this.lose){
                 
@@ -193,7 +194,7 @@ import * as CustomPngSequencesRenderer from '../utils/custom-png-sequences-rende
                         }
                         
                     } else {
-                        this.game.onSpin.dispatch();
+                            this.game.onSpin.dispatch();
                     }
                 }
 
@@ -203,9 +204,35 @@ import * as CustomPngSequencesRenderer from '../utils/custom-png-sequences-rende
                     this.darkOverlay.show();
                     this.game.world.bringToTop(this.darkOverlay);
                     this.game.world.bringToTop(this.logo);
-                    this.logo.animate();
+                    
+                    this.logo.animate(this.lose);
+                    if(!this.lose) {
+
+                        var winHero = this.game.add.sprite(0,0,'hero');
+
+                        if(Utils.isPortrait()){
+                            winHero.x = this.game.global.windowWidth;  
+                            winHero.y = this.game.global.windowHeight;     
+                        }else{
+                            winHero.x = this.game.global.windowWidth * 1.1;
+                            winHero.y = this.game.global.windowHeight * 1.1;
+                            // winHero.x = this.game.global.windowWidth * window.devicePixelRatio * .8;
+                            // winHero.y = this.game.global.windowHeight * window.devicePixelRatio  * 1.1;   
+                        }
+
+                       
+                        winHero.scale.x = 0;
+                        winHero.scale.y = winHero.scale.x;
+                        // var winfinalScale = this.game.global.windowWidth * window.devicePixelRatio / winHero.width;
+                        winHero.anchor.set(.5);
+                        // var winfinalScale = 1;
+                        this.game.add.existing(winHero);
+                        this.game.add.tween(winHero.scale).to({x: [1, 1.3, 1.2], y: [1, 1.3, 1.2]}, 1000, Phaser.Easing.Quadratic.InOut, true, 0);
+                        // this.game.add.tween(winHero.scale).to({x: [winfinalScale, winfinalScale * 1.3, winfinalScale* 1.2], y: [winfinalScale, winfinalScale * 1.3, winfinalScale * 1.2]}, 1000, Phaser.Easing.Quadratic.InOut, true, 0);
+                    }
                     this.game.world.bringToTop(this.cta);
-                    this.cta.animate();
+                    this.cta.animate(this.lose);
+
                 }, this);
             }
         }, this);

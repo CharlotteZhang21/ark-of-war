@@ -1,6 +1,6 @@
   import * as Util from '../utils/util';
   import * as CustomPngSequencesRenderer from '../utils/custom-png-sequences-renderer.js';
-
+  import Character from '../prefabs/character';
 class LifeBar extends Phaser.Group{
 	constructor(game, icon = "", enemy = false, amount){
 		super(game);
@@ -20,20 +20,11 @@ class LifeBar extends Phaser.Group{
 
 		var icon = this.game.add.sprite(0,0,iconName);
 		this.add(icon);
-		if(iconName != "girl-portrait"){
-			icon.anchor.set(0.5);
-			icon.x = (-1) * icon.width/2 * 1.5;
-			icon.y = this.initialHeight/2;
-			icon.scale.y = this.initialHeight / icon.height * 1.5;
-			icon.scale.x = icon.scale.y ;
-		}else{
-			//girl
-			icon.x = (-1) * icon.width/2 * 1.3;
-			icon.y = this.initialHeight/2 - 150;
-			icon.scale.y = this.initialHeight / icon.height * 5;
-			icon.scale.x = icon.scale.y * 0.8;
-		}
-		
+		icon.anchor.set(0.5);
+		icon.x = (-1) * icon.width/2 * 1.5;
+		icon.y = this.initialHeight/2;
+		icon.scale.y = this.initialHeight / icon.height * 2;
+		icon.scale.x = icon.scale.y ;
 	}
 
 	createLifeBar(enemy, amount) {
@@ -71,13 +62,10 @@ class LifeBar extends Phaser.Group{
 	}
 
 	decreaseLifeBar(value) {
-		if (this.amount - value > 0)
-			this.amount -= value;
-		else
-			this.amount = 0;
 
 		var scaleTween = this.game.add.tween(this.barFilling.scale).to(
 			{x:this.fullWidthFilling * (this.amount/100)}, 300, Phaser.Easing.Quadratic.InOut, true, 0);
+		
 		
 	}
 
@@ -96,6 +84,11 @@ class LifeBar extends Phaser.Group{
 	}
 
 	decreaseLifeBarWithDelay(value, delay) {
+		if (this.amount - value > 0)
+			this.amount -= value;
+		else{
+			this.amount = 0;
+		}
 		this.game.time.events.add(delay, function() {
 			this.decreaseLifeBar(value);
 		}, this);

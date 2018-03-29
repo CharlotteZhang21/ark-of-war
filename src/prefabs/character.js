@@ -26,8 +26,12 @@ class Character extends Phaser.Group {
 		}
 		this.lifeBar.scale.x = this.game.global.lifeBarScale;
 		this.lifeBar.scale.y = this.lifeBar.scale.x;
-		this.lifeBar.x = this.idleAnim.x - this.lifeBar.width/3;
-		this.lifeBar.y = this.idleAnim.y - this.idleAnim.height/2 * this.characterSettings.lifeBarYPos;
+		if(this.characterSettings.enemy)
+			this.lifeBar.x = this.getXOffset() + this.getWidth()/1.4;
+		else
+			this.lifeBar.x = this.getXOffset() + this.getWidth()/2.6;
+		// this.lifeBar.y = this.idleAnim.y - this.idleAnim.height/2 * this.characterSettings.lifeBarYPos;
+		this.lifeBar.y = this.getYOffset() - this.idleAnim.height/2 * this.characterSettings.lifeBarYPos;
 	}
 
 	attackWithDelay(layer, delay, damage) {
@@ -46,6 +50,24 @@ class Character extends Phaser.Group {
 			this.attackAnim.visible = false;
 			this.idleAnim.visible = true;
 		}, this);
+		if(this.game.global.windowHeight < this.game.global.windowWidth){
+			if(!this.characterSettings.enemy){
+			var tween = this.game.add.tween(this.attackAnim).to({
+					x: this.getXPos() * .6,
+					y: this.getYPos()},
+				1200, Phaser.Easing.Linear.none, true, 0);
+			tween.onComplete.add(function(){
+				this.game.add.tween(this.attackAnim).to({
+						x: this.getXPos(),
+						y: this.getYPos()},
+					400, Phaser.Easing.Linear.none, true, 200);
+				},this);
+			}
+		}
+		
+			
+		
+		
 		this.attackEffect(layer, damage);
 	}
 
@@ -60,8 +82,9 @@ class Character extends Phaser.Group {
 		for (var i = 0; i < otherCharacters.length; i++) {
 			if (!otherCharacters[i].dead) {
 				var otherCharacter = this.game.global.characters[otherCharacters[i]];
-				this.renderAttackEffect(otherCharacter, layer);
-				otherCharacter.decreaseLifeWithDelay(damage, 150);
+				if(otherCharacters.attackEffectAnimIndex !=null)
+					this.renderAttackEffect(otherCharacter, layer);
+				otherCharacter.decreaseLifeWithDelay(damage, 1000);
 			}
 		}
 	}
@@ -119,11 +142,9 @@ class Character extends Phaser.Group {
 
 	renderAttackEffect(otherCharacter, layer) {
 
-		console.log(otherCharacter);
-
 		var attackEffect = CustomPngSequencesRenderer.playPngSequence(this.game, PiecSettings.pngAnimations[this.characterSettings.attackEffectAnimIndex], layer);
 
-		attackEffect.anchor.set(0.5,1);
+		attackEffect.anchor.set(0,1);
 
 		var yFinalPos = otherCharacter.getYPos() + otherCharacter.getHeight() - otherCharacter.getHeight()/5;
 		if (PiecSettings.pngAnimations[this.characterSettings.attackEffectAnimIndex].aligned == "middle") {
@@ -147,8 +168,9 @@ class Character extends Phaser.Group {
 		if (PiecSettings.pngAnimations[this.characterSettings.attackEffectAnimIndex].scale != null){
 			scaleFactor = PiecSettings.pngAnimations[this.characterSettings.attackEffectAnimIndex].scale;
 		}
-		attackEffect.scale.x = this.game.global.characterWidth/attackEffect.width * 1.1 * scaleFactor;
-		attackEffect.scale.y = attackEffect.scale.x;
+		
+		attackEffect.scale.y = this.game.global.characterHeight/attackEffect.height * 1.1 * scaleFactor ;
+		attackEffect.scale.x = this.attackEffect.scale.y ;
 		// if (!PiecSettings.pngAnimations[this.characterSettings.attackEffectAnimIndex].persistent) {
 			attackEffect.animations.currentAnim.onComplete.add(function() {
 				attackEffect.destroy();
@@ -160,8 +182,17 @@ class Character extends Phaser.Group {
 	createAnimation(animationIndex, visible) {
 		var animation = CustomPngSequencesRenderer.playPngSequence(this.game, PiecSettings.pngAnimations[animationIndex], this);
 		// this.add(animation);
-		animation.x = this.game.global.windowWidth * window.devicePixelRatio * this.characterSettings.xPos;
-		animation.y = this.game.global.windowHeight * window.devicePixelRatio * this.characterSettings.yPos;
+
+		
+		if(this.game.global.windowHeight < this.game.global.windowWidth){//landscape
+			animation.x = this.game.global.windowWidth * window.devicePixelRatio * this.characterSettings.posXLandscapeOffset;
+			animation.y = this.game.global.windowHeight * window.devicePixelRatio * this.characterSettings.posYLandscapeOffset;
+
+		}else{
+			animation.x = this.game.global.windowWidth * window.devicePixelRatio * this.characterSettings.xPos ;
+			animation.y = this.game.global.windowHeight * window.devicePixelRatio * this.characterSettings.yPos;
+
+		}
 
 		var scaleFactor = 1;
 		if (PiecSettings.pngAnimations[animationIndex].scale != null){
@@ -174,7 +205,10 @@ class Character extends Phaser.Group {
 			animation.scale.y = this.game.global.windowHeight * window.devicePixelRatio / animation.height * this.characterSettings.scalePortrait * scaleFactor;
 		}
 
-		animation.anchor.set(0.5);
+		if(this.characterSettings.enemy)
+			animation.anchor.set(-0.03, .7);
+		else
+			animation.anchor.set(0.05, 1);
 		var flipped = 1;
 		if (this.characterSettings.flipped)
 			flipped = -1;
@@ -186,7 +220,7 @@ class Character extends Phaser.Group {
 		this.game.time.events.add(delay, function() {
 			this.lifeBar.decreaseLifeBarWithDelay(value, delay);
 			this.createAndAnimateText(value);
-			this.game.time.events.add(Math.max(delay, 500), function() {
+			this.game.time.events.add(100, function() {
 
 				//character dead
 				if (!this.dead && this.lifeBar.amount <= 0 && this.characterSettings.dieAnimIndex != null) {// DIE
@@ -204,6 +238,8 @@ class Character extends Phaser.Group {
 		}, this);
 	}
 
+
+
 	createAndAnimateText(value)  {
 
 		if(value < 0)
@@ -214,11 +250,18 @@ class Character extends Phaser.Group {
 			font: "bold " + fontSize + "px " + PiecSettings.fontFamily
 		};
 		var textField = new Phaser.Text(this.game, 0, 0, "-"+alteredValue, style);
-		textField.x = this.idleAnim.x - textField.width/2;
-		textField.y = this.idleAnim.y;
+
+
+		if(this.characterSettings.enemy)
+			textField.x = this.getXOffset() + this.getWidth()/1.4;
+		else
+			textField.x = this.getXOffset() + this.getWidth()/2.6;
+
+		// textField.x = this.getXOffset();
+		textField.y = this.getYOffset();
 		
 		var gradient = textField.context.createLinearGradient(0,0,0,textField.height);
-		gradient.addColorStop(0, "#ffffff");
+		gradient.addColorStop(0, "#ad4849");
 		gradient.addColorStop(1, "#dddddd");
 
 		textField.fill = gradient;
@@ -264,6 +307,14 @@ class Character extends Phaser.Group {
 
 	getHeight() {
 		return this.idleAnim.height;
+	}
+	
+	getXOffset() {
+		return Math.abs(this.idleAnim.x + this.idleAnim.width * this.idleAnim.anchor.x);
+	}
+
+	getYOffset() {
+		return this.idleAnim.y - this.idleAnim.height * this.idleAnim.anchor.y;
 	}
 
 }

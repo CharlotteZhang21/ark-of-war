@@ -1,11 +1,14 @@
 import * as CustomPngSequencesRenderer from '../utils/custom-png-sequences-renderer.js';
 
+import * as Utils from '../utils/util';
+
 class CtaButton extends Phaser.Group {
 	constructor(game) {
 		super(game);
 
 		this.button = new Phaser.Sprite(game, 0, 0, 'cta', 0);
 		this.add(this.button);
+		this.button.anchor.set(0.5);
 
 		this.fitInContainer();
 
@@ -39,8 +42,8 @@ class CtaButton extends Phaser.Group {
 		this.container = document.getElementById("cta-container");
 		this.containerWidth = this.container.offsetWidth * window.devicePixelRatio;
 		this.containerHeight = this.container.offsetHeight * window.devicePixelRatio;
-		var containerX = this.container.getBoundingClientRect().left * window.devicePixelRatio;
-		var containerY = this.container.getBoundingClientRect().top * window.devicePixelRatio;
+		var containerX = this.container.getBoundingClientRect().left * window.devicePixelRatio + this.containerWidth/2;
+		var containerY = this.container.getBoundingClientRect().top * window.devicePixelRatio + this.containerHeight /2;
 
 		this.x = containerX;
 		this.y = containerY;
@@ -76,30 +79,50 @@ class CtaButton extends Phaser.Group {
 		this.game.camera.shake(0.007, 100);
 	}
 
-	animate() {
+	animate(lose) {
 
 		var finalContainer = document.getElementById("cta-container-final");
 		var finalContainerWidth = finalContainer.offsetWidth * window.devicePixelRatio;
-		var finalContainerX = finalContainer.getBoundingClientRect().left * window.devicePixelRatio;
-		var finalContainerY = finalContainer.getBoundingClientRect().top * window.devicePixelRatio;
+		var finalContainerHeight = finalContainer.offsetHeight * window.devicePixelRatio;
+		var finalContainerX = finalContainer.getBoundingClientRect().left * window.devicePixelRatio + finalContainerWidth/2;
+		var finalContainerY = finalContainer.getBoundingClientRect().top * window.devicePixelRatio + finalContainerHeight /2;
 
 		this.newScale = finalContainerWidth/this.initialCtaWidth;
+
+		if(!lose){
+			if(Utils.isPortrait())
+				finalContainerY *= 1.25
+			else{
+				finalContainerX *= .8;
+				finalContainerY *= 1.2;
+			}
+		}
 
 		var positionTween = this.game.add.tween(this).to({x: finalContainerX, y: finalContainerY}, 1400, Phaser.Easing.Back.InOut, true, 0);
 		var scaleTween = this.game.add.tween(this.scale).to({x: this.newScale, y: this.newScale}, 1400, Phaser.Easing.Back.InOut, true, 0);
 
 		this.game.time.events.add(1400, function() {
-			this.startPulseIdleAnimation();
+			this.startPulseIdleAnimation(lose);
 		}, this);
 	}
 
-	startPulseIdleAnimation() {
+	startPulseIdleAnimation(lose) {
 		var finalContainer = document.getElementById("cta-container-final-2");
 		var finalContainerWidth = finalContainer.offsetWidth * window.devicePixelRatio;
-		var finalContainerX = finalContainer.getBoundingClientRect().left * window.devicePixelRatio;
-		var finalContainerY = finalContainer.getBoundingClientRect().top * window.devicePixelRatio;
+		var finalContainerHeight = finalContainer.offsetHeight * window.devicePixelRatio;
+		var finalContainerX = finalContainer.getBoundingClientRect().left * window.devicePixelRatio+ finalContainerWidth/2;
+		var finalContainerY = finalContainer.getBoundingClientRect().top * window.devicePixelRatio + finalContainerHeight/2;
 
 		var newScale2 = finalContainerWidth/this.initialCtaWidth;
+
+		if(!lose){
+			if(Utils.isPortrait())
+				finalContainerY *= 1.25
+			else{
+				finalContainerX *= .8;
+				finalContainerY *= 1.2;
+			}
+		}
 
 		var idleScaleTween = this.game.add.tween(this.scale).to({x: newScale2, y: newScale2}, 1000, Phaser.Easing.Quadratic.InOut, true, 0, -1, true);
 		var idlePositionTween = this.game.add.tween(this).to({x: finalContainerX, y: finalContainerY}, 1000, Phaser.Easing.Quadratic.InOut, true, 0, -1, true);

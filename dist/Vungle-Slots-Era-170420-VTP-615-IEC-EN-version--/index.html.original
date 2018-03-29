@@ -16,7 +16,7 @@
     }
     @font-face {
        font-family: 'Contemporary';
-       src: url('Contemporary.ttf') format('truetype');
+       src: url('DroidSans.ttf') format('truetype');
        font-weight: normal;
        font-style: normal;
     }

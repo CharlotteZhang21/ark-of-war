@@ -447,16 +447,16 @@ a {
     right: 0; } }
 
 #logo {
-  width: 25vw;
-  height: 16vw;
+  width: 50%;
+  height: 10%;
   top: 2vh;
-  left: 3vw;
-  right: auto; }
+  left: 0;
+  right: 0; }
 
 #logo-final {
-  width: 70vw;
-  height: 16vw;
-  top: 30vh;
+  width: 60%;
+  height: 10%;
+  top: 25%;
   left: 0;
   right: 0; }
 
@@ -623,7 +623,7 @@ a {
     left: 0;
     /*right: 5.25vw;
         left: auto;*/
-    top: 12%; }
+    top: 15%; }
   #game-grid, #grid-background {
     width: 50vw;
     height: 37vw;
@@ -665,7 +665,7 @@ a {
   #cta-container-final, #cta-container-final-2 {
     width: 30vw;
     height: 10vw;
-    bottom: 17%;
+    bottom: 30%;
     left: 0;
     right: 0;
     /*left: auto;
@@ -674,7 +674,6 @@ a {
     -webkit-transform: none; }
   #cta-container-final-2 {
     width: 35%;
-    bottom: 20%;
     /*right: 1.5%;*/ }
   #hand {
     width: 20vh;

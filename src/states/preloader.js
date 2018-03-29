@@ -43,17 +43,16 @@
          this.game.load.image('enemy-bar-fill', PiecSettings.assetsDir + 'enemy_bar_fill.png');
          this.game.load.image('background', PiecSettings.assetsDir + 'bg.jpg');
          this.game.load.image('gradient', PiecSettings.assetsDir + 'gradient.png');
-         this.game.load.image('blue-icon', PiecSettings.assetsDir + 'blue_icon.png');
-         this.game.load.image('death-icon', PiecSettings.assetsDir + 'death_icon.png');
-         this.game.load.image('purple-icon', PiecSettings.assetsDir + 'purple_icon.png');
          this.game.load.image('win-message', PiecSettings.assetsDir + 'victory.png');
          this.game.load.image('lose-message', PiecSettings.assetsDir + 'lose.png');
          
-         this.game.load.image('knight-portrait', PiecSettings.assetsDir + 'knight_portrait.png');
+         this.game.load.image('death-icon', PiecSettings.assetsDir + 'death-icon.png');
          this.game.load.image('girl-portrait', PiecSettings.assetsDir + 'girl_portrait.png');
 
          this.game.load.image('attack-button', PiecSettings.assetsDir + 'attack.png');
 
+         this.game.load.image('hero', PiecSettings.assetsDir + 'hero.png');
+         
          this.game.global.animations = {};
          
          PiecSettings.animation = PiecSettings.animation || {};
