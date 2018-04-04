@@ -42,10 +42,6 @@ class LifeBar extends Phaser.Group{
 		barFilling.x = this.width/100;
 		barFilling.y = this.height/100 * 7;
 
-		
-		barFilling.x = this.width/100;
-		barFilling.y = this.height/100 * 7;
-
 		barFilling.scale.x = (this.width - this.width/100 * 2) / barFilling.width;
 		barFilling.scale.y = barBg.height / barFilling.height * .85;
 

@@ -10,10 +10,10 @@ class DarkOverlay extends Phaser.Group {
 			this.graphics.beginFill(0x000000, 1);
 		}
 		this.graphics.drawRect(
-			0, 
-			0, 
-			this.game.global.windowWidth * window.devicePixelRatio, 
-			this.game.global.windowHeight * window.devicePixelRatio);
+			-10, 
+			-10, 
+			this.game.global.windowWidth * window.devicePixelRatio * 1.05, 
+			this.game.global.windowHeight * window.devicePixelRatio * 1.05);
 
 		this.add(this.graphics);
 

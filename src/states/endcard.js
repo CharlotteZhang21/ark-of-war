@@ -1,4 +1,5 @@
 import Logo from '../prefabs/logo';
+import Hero from '../prefabs/hero';
 import DarkOverlay from '../prefabs/dark-overlay';
 import CtaButton from '../prefabs/cta-button';
 import Victory from '../prefabs/victory';
@@ -30,7 +31,7 @@ import * as Utils from '../utils/util';
         this.background = new Background(this.game);
         // this.game.add.existing(this.background);
         this.camera.gameWorld.add(this.background);
-        this.game.global.lifeBarScale = .25;
+        // this.game.global.lifeBarScale = .25;
 
         this.game.onInteract.add(this.onInteract, this);
         this.game.onInteractionComplete.add(this.onInteractionComplete, this);
@@ -65,6 +66,9 @@ import * as Utils from '../utils/util';
 
         this.cta = new CtaButton(this.game);
         this.game.add.existing(this.cta);
+
+        this.hero = new Hero(this.game);
+        this.game.add.existing(this.hero);
 
         this.battleButton = new BattleButton(this.game);
         this.game.add.existing(this.battleButton);
@@ -205,31 +209,11 @@ import * as Utils from '../utils/util';
                     this.game.world.bringToTop(this.darkOverlay);
                     this.game.world.bringToTop(this.logo);
                     
+                    
                     this.logo.animate(this.lose);
-                    if(!this.lose) {
 
-                        var winHero = this.game.add.sprite(0,0,'hero');
-
-                        if(Utils.isPortrait()){
-                            winHero.x = this.game.global.windowWidth;  
-                            winHero.y = this.game.global.windowHeight;     
-                        }else{
-                            winHero.x = this.game.global.windowWidth * 1.1;
-                            winHero.y = this.game.global.windowHeight * 1.1;
-                            // winHero.x = this.game.global.windowWidth * window.devicePixelRatio * .8;
-                            // winHero.y = this.game.global.windowHeight * window.devicePixelRatio  * 1.1;   
-                        }
-
-                       
-                        winHero.scale.x = 0;
-                        winHero.scale.y = winHero.scale.x;
-                        // var winfinalScale = this.game.global.windowWidth * window.devicePixelRatio / winHero.width;
-                        winHero.anchor.set(.5);
-                        // var winfinalScale = 1;
-                        this.game.add.existing(winHero);
-                        this.game.add.tween(winHero.scale).to({x: [1, 1.3, 1.2], y: [1, 1.3, 1.2]}, 1000, Phaser.Easing.Quadratic.InOut, true, 0);
-                        // this.game.add.tween(winHero.scale).to({x: [winfinalScale, winfinalScale * 1.3, winfinalScale* 1.2], y: [winfinalScale, winfinalScale * 1.3, winfinalScale * 1.2]}, 1000, Phaser.Easing.Quadratic.InOut, true, 0);
-                    }
+                    this.game.world.bringToTop(this.hero);
+                    this.hero.animate(this.lose);
                     this.game.world.bringToTop(this.cta);
                     this.cta.animate(this.lose);
 

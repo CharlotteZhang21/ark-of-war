@@ -3,7 +3,7 @@ var PiecSettings = PiecSettings || {};
 PiecSettings.version = "-";
 
 PiecSettings.autoPlay = {
-    activateAfter: 3000,
+    activateAfter: 4000,
 }
 
 PiecSettings.hitToStore = 0; // no hitToStore function, set it as 0;

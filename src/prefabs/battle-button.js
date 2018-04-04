@@ -80,27 +80,27 @@ class BattleButton extends Phaser.Group {
 		this.enemyEnergyBar.alpha = 0;
 
 
-		this.girlEnergyBar.y = this.button.y + 150;
+		this.girlEnergyBar.y = this.button.y + ( this.button.height );
 
-		this.enemyEnergyBar.y = this.button.y + 250;
+		this.enemyEnergyBar.y =this.girlEnergyBar.y + this.button.height;
 
 
 		this.initPortrait();
 
 
 		/** add text **/
-		var fontSize = 18;
+		var fontSize = this.button.height * .2;
 		var style = {
 			font: fontSize + "px " + PiecSettings.fontFamily
 		};
 
 		var girlTextField = new Phaser.Text(this.game, 0, 0, "Power", style);
 		girlTextField.x = this.girlEnergyBar.x;
-		girlTextField.y = this.girlEnergyBar.y - 50;
+		girlTextField.y = this.girlEnergyBar.y - this.girlEnergyBar.height * .75;
 
 		var enemyTextField = new Phaser.Text(this.game, 0, 0, "Power", style);
 		enemyTextField.x = this.enemyEnergyBar.x ;
-		enemyTextField.y = this.enemyEnergyBar.y - 50;
+		enemyTextField.y = this.enemyEnergyBar.y - this.enemyEnergyBar.height * .75;;
 
 		this.setTextColor(girlTextField);
 		this.setTextColor(enemyTextField);

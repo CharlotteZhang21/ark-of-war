@@ -6,6 +6,7 @@ class Character extends Phaser.Group {
 		super(game);
 		this.characterSettings = characterSettings;
 		this.createCharacter();
+
 		this.lifeBar = new LifeBar(this.game, characterSettings.icon, characterSettings.enemy);
 		this.add(this.lifeBar);
 		this.fitLifeBarInContainer();
@@ -22,8 +23,9 @@ class Character extends Phaser.Group {
 
 	fitLifeBarInContainer() {
 		if (this.game.global.lifeBarScale == null) {
-			this.game.global.lifeBarScale = this.idleAnim.width / this.lifeBar.width * .8;
+			this.game.global.lifeBarScale = this.game.global.windowWidth / this.lifeBar.width * window.devicePixelRatio * .15;
 		}
+
 		this.lifeBar.scale.x = this.game.global.lifeBarScale;
 		this.lifeBar.scale.y = this.lifeBar.scale.x;
 		if(this.characterSettings.enemy)
@@ -43,6 +45,7 @@ class Character extends Phaser.Group {
 	attack(layer, damage) {
 		this.idleAnim.visible = false;
 		this.attackAnim = this.createAnimation(this.characterSettings.attackAnimIndex, false);
+		// this.game.world.bringToTop(this);
 		this.add(this.attackAnim);
 		var waitTime = 0;
 		waitTime = Math.floor(PiecSettings.pngAnimations[this.characterSettings.attackAnimIndex].spriteNumber * (1/PiecSettings.pngAnimations[this.characterSettings.attackAnimIndex].fps) * 1000) - 150;

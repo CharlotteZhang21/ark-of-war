@@ -74,6 +74,9 @@
         <div class="layout-item" id="cta-container-final-2">
         </div>
 
+        <div class="layout-item" id="heroes">
+        </div>
+
         <a class="try-again" id="tryAgain" onclick="restartLevel()">Try Again</a>
         
         <!-- IEC Creative ends here -->
